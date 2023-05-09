@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.thymeleaf.org" th:replace="~{base::layout(~{::section})}">
+
+<section>
+    <!-- form -->
+    <div class="container-fluid was-validated m-3">
+      <div class="row">
+        <div class="col-md-6 offset-md-3">
+          <div class="card">
+          <div class="card-header text-center fs-4" th:text="${pageTitle}"></div>
+          <div class="card-body">
+            <form th:object="${voitureIn}" class="form-group" th:action="@{/voiture/list}" method="post">
+              <div class="mb-3">
+                <input class="form-control" type="text" th:field="*{id}" placeholder="Votre numéro voiture..."
+                       aria-label="default input example" required minlength="3">
+              </div>
+              <div class="mb-3">
+                <input class="form-control" type="text" th:field="*{designation}" placeholder="Votre designation..."
+                       aria-label="default input example" required minlength="3">
+              </div>
+              <div class="mb-3">
+                <input class="form-control" type="text" th:field="*{Loyer}" placeholder="Loyer" aria-label="default input example"
+                       required minlength="3">
+              </div>
+              <div class="modal-footer">
+                <a class="btn btn-secondary m-1" th:href="@{/voiture/list}" >Retour</a>
+                <input type="submit" th:class="${class}" th:value="${button}">
+              </div>
+            </form>
+          </div>
+          </div>
+        </div>
+    </div>
+      </div>
+</section>
+</body>
+</html>

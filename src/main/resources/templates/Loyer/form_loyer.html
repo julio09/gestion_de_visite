@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.thymeleaf.org" th:replace="~{base::layout(~{::section})}">
+
+<section>
+    <!-- form -->
+    <div class="container-fluid was-validated m-3">
+      <div class="row">
+        <div class="col-md-6 offset-md-3">
+          <div class="card">
+          <div class="card-header text-center fs-4" th:text="${pageTitle}"></div>
+          <div class="card-body">
+      <form th:object="${louer}" class="form-group" th:action="@{/loyer/list}" method="post">
+        <div class="mb-3">
+          <input name="id" type="hidden" th:field="*{id}">
+        </div>
+        <div class="mb-3">
+        <select class="form-select" aria-label="Default select example" th:field="*{locataire}">
+          <option th:each="locataire : ${locataires}" th:value="${locataire.id}" th:text="${locataire}" ></option>
+        </select>
+        </div>
+        <div class="mb-3">
+          <select class="form-select" aria-label="Default select example" th:field="*{voiture}">
+            <option th:each="voiture : ${voitures}" th:value="${voiture.id}" th:text="${voiture}" ></option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <input class="form-control" type="text" th:field="*{nbjour}" placeholder="Nombre jour de location..."
+                 aria-label="default input example" required>
+        </div>
+        <div class="mb-3">
+          <input class="form-control" type="date" th:field="*{date}"
+                 aria-label="default input example" required>
+        </div>
+        <div class="modal-footer">
+          <a class="btn btn-secondary m-1" th:href="@{/loyer/list}" >Retour</a>
+          <input type="submit" th:class="${class}" th:value="${button}">
+        </div>
+      </form>
+          </div>
+          </div>
+        </div>
+    </div>
+      </div>
+</section>
+</body>
+</html>

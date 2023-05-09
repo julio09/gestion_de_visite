@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.thymeleaf.org " th:fragment="layout(content)">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title th:text="${Title}"></title>
+  <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+  <link rel="stylesheet" type="text/css" th:href="@{/webjars/font-awesome/css/all.min.css}"/>
+  <script type="module" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+  <script type="module" th:src="@{/webjars/font-awesome/js/all.min.js}"></script>
+  <script type="module" th:src="@{/webjars/jquery/jquery.min.js}"></script>
+</head>
+<body>
+<header>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" th:href="@{/home}">Location de Voiture <i class="fa-regular fa-cars"></i></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarColor01">
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item">
+            <a class="nav-link" th:href="@{/locataire/list}">Locataire</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" th:href="@{/voiture/list}">Voiture</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" th:href="@{/loyer/list}">Loyer</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>
+<div th:replace="${content}"></div>
+</body>
+</html>

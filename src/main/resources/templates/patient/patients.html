@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" th:replace="~{base::layout(~{::section})}">
+<body>
+<section>
+    <div class="container-fluid m-4 mx-auto w-auto">
+        <p class="h2 m-1">Liste patient <i class="fa-solid fa-user-doctor fa-sm"></i></p>
+        <div class="container-fluid p-2">
+
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            ...
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Button trigger modal -->
+            <a class="btn btn-primary" th:href="@{/patient/save}">Création un nouveau patient <i class="fa-solid fa-user-plus"></i></a>
+        </div>
+        <div th:if="${message}" th:class="${class}">
+            <span th:text="${message}"></span>
+        </div>
+        <div th:if="${Error}" th:class="${class}">
+            <span th:text="${Error}"></span>
+        </div>
+        <div th:if="${delete}" th:class="${class}">
+            <span th:text="${delete}"></span>
+        </div>
+        <div th:if="${modification}" th:class="${class}">
+            <span th:text="${modification}"></span>
+        </div>
+        <div th:if="${Erreur1}" th:class="${class}">
+            <span th:text="${Erreur1}"></span>
+        </div>
+        <div th:if="${update}" th:class="${class}">
+            <span th:text="${update}"></span>
+        </div>
+        <div class="table-responsive-sm ">
+            <table class="table table-dark table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">Code Medecin</th>
+                    <th scope="col">Nom</th>
+                    <th scope="col">Prenom</th>
+                    <th scope="col">Sexe</th>
+                    <th scope="col">Adresse</th>
+                    <th scope="col">Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="patient : ${patients}">
+                    <td th:text="${patient.id}"></td>
+                    <td th:text="${patient.nom}"></td>
+                    <td th:text="${patient.prenom}"></td>
+                    <td th:text="${patient.sexe}"></td>
+                    <td th:text="${patient.adresse}"></td>
+                    <td><a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" th:href="${patient.id}"> <i class="fa-solid fa-eye"></i></a>
+                        <a class="btn btn-danger" th:href="@{'/patient/edit/'+${patient.id}}"> <i class="fa-solid fa-pen-to-square"></i></a>
+                        <a class="btn btn-warning" th:href="@{'/patient/delete/'+ ${patient.id}}"> <i class="fa-solid fa-trash"></i></a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="container-fluid row col sm-2">
+                <h5>Cette tableau contient : <span class="badge bg-secondary" th:text="${Item}"></span> ligne</h5>
+            </div>
+            <div th:if="${page > 1}">
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+                        <li class="page-item">
+                            <a class="page-link" th:if="${current < page}"   th:href="@{'/patient/list/'+${page}}" aria-label="Previous">
+                                <span th:if="${current < 1}" th:unless="${current < page}"></span>
+                                <span aria-hidden="true" >&laquo;</span>
+                            </a>
+                        </li>
+                        <li th:each="i : ${#numbers.sequence(1,page)}"  class="page-item">
+                            <a class="page-link" th:if="${current != i}" th:href="@{'/patient/list/'+ ${i}}">[[${i}]]</a>
+                            <span class="page-link" th:unless="${current != i}">[[${i}]]</span>
+                        </li>
+                        <li class="page-item" >
+                            <a class="page-link" th:if="${current < page}"  th:href="@{'/patient/list/'+ ${current+1}}" aria-label="Next">
+                                <span th:unless="${current < page}"></span>
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

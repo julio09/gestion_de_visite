@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.thymeleaf.org" th:replace="~{base::layout(~{::section})}">
+<body>
+<section>
+    <!-- form -->
+    <div class="container-fluid was-validated m-3">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <div class="card">
+                    <div class="card-header text-center fs-4" th:text="${pageTitle}"></div>
+                    <div class="card-body">
+                        <form th:object="${patient}" class="form-group w-50" th:action="@{/patient}" method="post">
+                            <div class="mb-3">
+                                <input name="id" type="hidden" th:field="*{id}">
+                            </div>
+                            <div class="mb-3">
+                                <input class="form-control" type="text" th:field="*{nom}" placeholder="Votre nom..."
+                                       aria-label="default input example" required minlength="3">
+                            </div>
+                            <div class="mb-3">
+                                <input class="form-control" type="text" th:field="*{prenom}" placeholder="Votre prenom..." aria-label="default input example"
+                                       required minlength="3">
+                            </div>
+                            <div class="mb-3">
+                                <select class="form-select" aria-label="Default select example" th:field="*{sexe}">
+                                    <option th:value="H" th:text="Homme"></option>
+                                    <option th:value="F" th:text="Femme"></option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <input class="form-control" type="text" th:field="*{adresse}" placeholder="Votre Adresse..." aria-label="default input example"
+                                       required minlength="3">
+                            </div>
+                            <div class="modal-footer">
+                                <input type="submit" th:class="${class}" th:value="${button}">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

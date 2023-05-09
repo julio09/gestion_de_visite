@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.thymeleaf.org" th:replace="~{base::layout(~{::section})}">
+
+<section>
+  <div class="table-responsive-sm ">
+    <table class="table table-dark table-striped location" id="ma-table">
+      <thead>
+      <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Locataire</th>
+        <th scope="col">Voiture</th>
+        <th scope="col">Nombre du jour</th>
+        <th scope="col">Date du location</th>
+        <th scope="col">Montant</th>
+        <th scope="col">Action</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="loyer : ${louers}">
+        <td th:text="${loyer.id}"></td>
+        <td th:text="${loyer.locataire}"></td>
+        <td th:text="${loyer.voiture}"></td>
+        <td th:text="${loyer.nbjour}"></td>
+        <td th:text="${loyer.date}"></td>
+        <td th:text="${loyer.voiture.Loyer * loyer.nbjour}"></td>
+        <td>
+          <a class="btn btn-primary" th:href="${loyer.id}"><i class="fa-solid fa-eye"></i></a>
+          <a class="btn btn-danger" th:href="@{'/loyer/edit/'+${loyer.id}}"> <i class="fa-regular fa-pen-to-square"></i> </a>
+          <a class="btn btn-warning" th:href="@{'/loyer/delete/'+ ${loyer.id}}"><i class="fa-solid fa-trash"></i></a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    <div class="container-fluid row col sm-2">
+      <h5>Cette tableau contient : <span class="badge bg-secondary" th:text="${Item}"></span> ligne</h5>
+    </div>
+    <div th:if="${page > 1}">
+      <nav aria-label="Page navigation example">
+        <ul class="pagination">
+          <li class="page-item">
+            <a class="page-link" th:if="${current < page}"   th:href="@{'/loyer/list/'+${page}}" aria-label="Previous">
+              <span th:if="${current < 1}" th:unless="${current < page}"></span>
+              <span aria-hidden="true" >&laquo;</span>
+            </a>
+          </li>
+          <li th:each="i : ${#numbers.sequence(1,page)}"  class="page-item">
+            <a class="page-link" th:if="${current != i}" th:href="@{'/loyer/list/'+ ${i}}">[[${i}]]</a>
+            <span class="page-link" th:unless="${current != i}">[[${i}]]</span>
+          </li>
+          <li class="page-item" >
+            <a class="page-link" th:if="${current < page}"  th:href="@{'/loyer/list/'+ ${current+1}}" aria-label="Next">
+              <span th:unless="${current < page}"></span>
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</section>
+</html>

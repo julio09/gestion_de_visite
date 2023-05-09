@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" th:replace="~{base::layout(~{::section})}">
+<body>
+
+<section>
+<div class="container-fluid m-4 mx-auto w-auto">
+    <p class="h2 m-1"><i class="fa-solid fa-list"></i> Liste Medecin</p>
+    <div class="container-fluid p-2">
+        <!-- Button trigger modal -->
+        <a class="btn btn-primary m-3" th:href="@{/Medecin/save}">Création nouveau Medecin <i class="fa-solid fa-user-doctor"></i></a>
+
+    </div>
+    <div th:if="${message}" th:class="${class}">
+        <span th:text="${message}"></span>
+    </div>
+    <div th:if="${Error}" th:class="${class}">
+        <span th:text="${Error}"></span>
+    </div>
+    <div th:if="${delete}" th:class="${class}">
+        <span th:text="${delete}"></span>
+    </div>
+    <div th:if="${modification}" th:class="${class}">
+        <span th:text="${modification}"></span>
+    </div>
+    <div th:if="${Erreur1}" th:class="${class}">
+        <span th:text="${Erreur1}"></span>
+    </div>
+    <div class="table-responsive-sm ">
+        <table class="table table-dark table-striped">
+            <thead>
+            <tr>
+                <th scope="col">Code Medecin</th>
+                <th scope="col">Nom</th>
+                <th scope="col">Prenom </th>
+                <th scope="col">Grade</th>
+                <th scope="col">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+                    <tr th:each="medicin : ${medecins}">
+                        <td th:text="${medicin.id}"></td>
+                        <td th:text="${medicin.nom}"></td>
+                        <td th:text="${medicin.prenom}"></td>
+                        <td th:text="${medicin.grade}"></td>
+                    <td>
+                        <a class="btn btn-primary" th:href="${medicin.id}"><i class="fa-solid fa-eye"></i></a>
+                        <a class="btn btn-danger" th:href="@{'/Medecin/edit/'+${medicin.id}}"> <i class="fa-regular fa-pen-to-square"></i> </a>
+                        <a class="btn btn-warning" th:href="@{'/Medecin/delete/'+ ${medicin.id}}"><i class="fa-solid fa-trash"></i></a></td>
+                    </tr>
+            </tbody>
+        </table>
+        <div class="container-fluid row col sm-2">
+            <h5>Cette tableau contient : <span class="badge bg-secondary" th:text="${Item}"></span> ligne</h5>
+        </div>
+        <div th:if="${page > 1}">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <li class="page-item">
+                    <a class="page-link" th:if="${current < page}"   th:href="@{'/Medecin/list/'+${page}}" aria-label="Previous">
+                        <span th:if="${current < 1}" th:unless="${current < page}"></span>
+                        <span aria-hidden="true" >&laquo;</span>
+                    </a>
+                </li>
+                <li th:each="i : ${#numbers.sequence(1,page)}"  class="page-item">
+                    <a class="page-link" th:if="${current != i}" th:href="@{'/Medecin/list/'+ ${i}}">[[${i}]]</a>
+                    <span class="page-link" th:unless="${current != i}">[[${i}]]</span>
+                </li>
+                <li class="page-item" >
+                    <a class="page-link" th:if="${current < page}"  th:href="@{'/Medecin/list/'+ ${current+1}}" aria-label="Next">
+                        <span th:unless="${current < page}"></span>
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        </div>
+    </div>
+</div>
+</section>
+</body>
+</html>

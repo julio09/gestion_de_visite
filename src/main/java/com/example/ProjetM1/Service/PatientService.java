@@ -1,6 +1,5 @@
 package com.example.ProjetM1.Service;
 
-import com.example.ProjetM1.Entity.Medicin;
 import com.example.ProjetM1.Entity.Patient;
 import com.example.ProjetM1.Repository.PatientRepositoryInterface;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +18,7 @@ public class PatientService {
     public void createPatient(Patient patient){
         patientRepositoryInterface.save(patient);
     }
-    public List<Patient> findAll(){
-        return patientRepositoryInterface.findAll();
-    }
+
     public Patient GetId(Long id){
         return patientRepositoryInterface.findById(id).orElse(null);
     }
